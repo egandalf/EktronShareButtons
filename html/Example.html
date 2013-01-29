@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Social Button Example</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="../js/jqSocialButtons.js"></script>
+    <style type="text/css">
+        .ektron-social { overflow:hidden; text-align:center; }
+        .ektron-social a { display:block; float:left; margin:5px; width:40px; text-decoration:none; }
+        .ektron-social a span { display:block; font-size:70%; }
+        /* service-specific styles */
+        .ektron-social a.facebook { color:#456caa; }
+        .ektron-social a.twitter { color: #2CA9E0; }
+        .ektron-social a.linkedin { color: #000; }
+        .ektron-social a.google { color: #D41825;}
+    </style>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".ektron-social.DoSet").ekSocial({ classToRemove: 'DoSet' });
+        });
+    </script>
+</head>
+<body>
+    <p>http://www.ektron.com/</p>
+    <div class="ektron-social DoSet" data-url="http://www.ektron.com/" data-title="Home \\ Ektron" data-hash="Ektron">
+        <a class="facebook"><b><img src="../images/social/like.png" alt="Like" /></b><span></span></a>
+        <a class="twitter"><b><img src="../images/social/tweet.png" alt="Tweet" /></b><span></span></a>
+        <a class="linkedin"><b><img src="../images/social/in.png" alt="InShare" /></b><span></span></a>
+        <a class="google"><b><img src="../images/social/plus.png" alt="PlusOne" /></b><span></span></a>
+    </div>
+    <p>http://www.ektron.com/Community/</p>
+    <div class="ektron-social DoSet" data-url="http://www.ektron.com/Community/" data-title="Community \\ Ektron" data-hash="Ektron">
+        <a class="facebook"><b><img src="../images/social/like.png" alt="Like" /></b><span></span></a>
+        <a class="twitter"><b><img src="../images/social/tweet.png" alt="Tweet" /></b><span></span></a>
+        <a class="linkedin"><b><img src="../images/social/in.png" alt="InShare" /></b><span></span></a>
+        <a class="google"><b><img src="../images/social/plus.png" alt="PlusOne" /></b><span></span></a>
+    </div>
+    <p>http://www.ektron.com/Blogs/eGandalf/The-LESS-is-More-Inclination/</p>
+    <div class="ektron-social DoSet" data-url="http://www.ektron.com/Blogs/eGandalf/The-LESS-is-More-Inclination/" data-title="Webinars \\ Ektron" data-hash="Ektron">
+        <a class="facebook"><b><img src="../images/social/like.png" alt="Like" /></b><span></span></a>
+        <a class="twitter"><b><img src="../images/social/tweet.png" alt="Tweet" /></b><span></span></a>
+        <a class="linkedin"><b><img src="../images/social/in.png" alt="InShare" /></b><span></span></a>
+        <a class="google"><b><img src="../images/social/plus.png" alt="PlusOne" /></b><span></span></a>
+    </div>
+</body>
+</html>
