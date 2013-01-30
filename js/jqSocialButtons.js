@@ -24,7 +24,7 @@
             linkedInShare: 'http://www.linkedin.com/shareArticle?mini=true',
             facebookShare: 'http://www.facebook.com/sharer/sharer.php?u=',
             twitterShare: 'https://twitter.com/intent/tweet'
-        }
+        };
 
         var plugin = this;
 
@@ -36,7 +36,7 @@
             linkedinClass: 'linkedin',
             twitterClass: 'twitter',
             linkTarget: '_blank'
-        }
+        };
 
         var $element = $(element),
              element = element;
@@ -70,7 +70,7 @@
             if (plugin.settings.removeClass) {
                 $element.removeClass(plugin.settings.classToRemove);
             }
-        }
+        };
 
         var configure_facebook = function ($links) {
             var fb_count = 0;
@@ -91,7 +91,7 @@
                     $link.attr("target", plugin.settings.linkTarget);
                 });
             });
-        }
+        };
 
         var configure_google = function ($links) {
             var g_count = 0;
@@ -111,7 +111,7 @@
                     $link.attr("target", plugin.settings.linkTarget);
                 });
             });
-        }
+        };
 
         var configure_linkedin = function ($links) {
             var in_count = 0;
@@ -127,7 +127,7 @@
             }).always(function () {
                 $links.each(function (index) {
                     var $link = $(this);
-                    var href = plugin.settings.linkedinShare;
+                    var href = plugin.settings.linkedInShare;
                     if (title != '') {
                         href += "&title=" + encodeURIComponent(title);
                     }
@@ -137,7 +137,7 @@
                     $link.attr("target", plugin.settings.linkTarget);
                 });
             });
-        }
+        };
 
         var configure_twitter = function ($links) {
             var tw_count = 0;
@@ -182,10 +182,10 @@
                     $link.attr("target", plugin.settings.linkTarget);
                 });
             });
-        }
+        };
 
         plugin.init();
-    }
+    };
 
     $.fn.ekSocial = function (options) {
         return this.each(function () {
@@ -194,5 +194,5 @@
                 $(this).data('ekSocial', plugin);
             }
         });
-    }
+    };
 })(jQuery);
