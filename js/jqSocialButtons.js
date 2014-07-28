@@ -17,12 +17,13 @@
             linkTarget: '_blank',
             //
             googleAPI: '/handlers/googleplus.ashx?url=',
-            linkedinAPI: 'http://www.linkedin.com/countserv/count/share',
-            facebookAPI: 'http://graph.facebook.com/',
-            twitterAPI: 'http://cdn.api.twitter.com/1/urls/count.json',
+            linkedinAPI: 'https://www.linkedin.com/countserv/count/share',
+            facebookAPI: 'https://graph.facebook.com/',
+            twitterAPI: 'https://cdn.api.twitter.com/1/urls/count.json',
             googleShare: 'https://plus.google.com/share?hl=en-US&url=',
             linkedInShare: 'http://www.linkedin.com/shareArticle?mini=true',
             facebookShare: 'http://www.facebook.com/sharer/sharer.php?u=',
+            facebookCustomShare: 'http://www.facebook.com/sharer/sharer.php?s=100&',
             twitterShare: 'https://twitter.com/intent/tweet'
         };
 
@@ -75,7 +76,12 @@
         var configure_facebook = function ($links) {
             var fb_count = 0;
             var url = $element.data("url");
+            var title = $element.data("title");
+            var summary = $element.data("summary");
+            var source = $element.data("source");
+            //var url = url.toLowerCase();
             var trimmedUrl = url.replace(/\/$/, '');
+            var image = $element.data("image");
             $.ajax({
                 url: plugin.settings.facebookAPI + encodeURIComponent(trimmedUrl),
                 dataType: 'jsonp'
@@ -87,8 +93,20 @@
                 $links.each(function (index) {
                     var $link = $(this);
                     $link.find('span').text(fb_count);
-                    $link.attr("href", plugin.settings.facebookShare + url);
                     $link.attr("target", plugin.settings.linkTarget);
+
+                    if (title.length == 0 || summary.length == 0 || source.length == 0 || image.length == 0) {
+                        // if any parameters are missing, go full-automatic
+                        $link.attr("href", plugin.settings.facebookShare + trimmedUrl);
+                    } else {
+                        // completely custom settings for sharing
+                        $link.attr("href",
+                            plugin.settings.facebookCustomShare +
+                            "p[url]=" + trimmedUrl +
+                            "&p[title]=" + encodeURIComponent(title) +
+                            "&p[summary]=" + encodeURIComponent(summary) +
+                            "&p[images][0]=" + encodeURIComponent(image));
+                    }
                 });
             });
         };
@@ -96,11 +114,13 @@
         var configure_google = function ($links) {
             var g_count = 0;
             var url = $element.data("url");
+            //var url = url.toLowerCase();
+            var image = $element.data("image");
             $.ajax({
                 url: plugin.settings.googleAPI + encodeURIComponent(url),
                 dataType: 'json'
             }).done(function (data) {
-                if (data[0].result.metadata.globalCounts.count !== undefined) {
+                if (data !== null && data[0].result.metadata.globalCounts.count !== undefined) {
                     g_count = data[0].result.metadata.globalCounts.count;
                 }
             }).always(function () {
@@ -116,7 +136,11 @@
         var configure_linkedin = function ($links) {
             var in_count = 0;
             var url = $element.data("url");
+            //var url = url.toLowerCase();
             var title = $element.data("title");
+            var summary = $element.data("summary");
+            var source = $element.data("source");
+            var image = $element.data("image");
             $.ajax({
                 url: plugin.settings.linkedinAPI + "?url=" + encodeURIComponent(url) + "&callback=?&format=jsonp",
                 dataType: 'jsonp'
@@ -131,6 +155,12 @@
                     if (title != '') {
                         href += "&title=" + encodeURIComponent(title);
                     }
+                    if (summary != '') {
+                        href += "&summary=" + encodeURIComponent(summary);
+                    }
+                    if (source != '') {
+                        href += "&source=" + encodeURIComponent(source);
+                    }
                     href += "&url=" + encodeURIComponent(url);
                     $link.find('span').text(in_count);
                     $link.attr("href", href);
@@ -142,6 +172,7 @@
         var configure_twitter = function ($links) {
             var tw_count = 0;
             var url = $element.data("url") != undefined ? $element.data("url") : '';
+            //var url = url.toLowerCase();
             var hash = $element.data("hash") != undefined ? $element.data("hash") : '';
             var title = $element.data("title") != undefined ? $element.data("title") : '';
             var via = $element.data("via") != undefined ? $element.data("via") : '';
